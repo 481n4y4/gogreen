@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carbon Emission Counter</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>🌍 Global Carbon Emission Counter</h1>
+    <div id="totalCounter" class="counter">0</div>
+    <p>Estimasi pertambahan: <strong>+1,166 ton CO₂/detik</strong></p>
+
+    <section class="sectors">
+      <h2>🔎 Breakdown per sektor</h2>
+      <ul>
+        <li>⚡ Electricity: <span id="electricityCounter">0</span> ton CO₂</li>
+        <li>🚗 Transport: <span id="transportCounter">0</span> ton CO₂</li>
+        <li>🏭 Industry: <span id="industryCounter">0</span> ton CO₂</li>
+        <li>🏠 Buildings: <span id="buildingsCounter">0</span> ton CO₂</li>
+        <li>🚬 Cigarettes: <span id="cigarettesCounter">0</span> ton CO₂</li>
+        <li>🔥 Garbages Burning: <span id="garbagesCounter">0</span> ton CO₂</li>
+      </ul>
+    </section>
+  </main>
+  
+    <footer>
+      <small>Sumber estimasi: Our World in Data (2022)</small>
+    </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
