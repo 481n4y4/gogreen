@@ -35,7 +35,12 @@
             maiores dicta tempore impedit earum fuga ipsa, iure deleniti natus
             ipsum blanditiis.
           </p>
-          <a href="#about">Learn More</a>
+          <button
+            type="button"
+            onclick="document.getElementById('about').scrollIntoView({ behavior: 'smooth' })"
+          >
+            Learn More
+          </button>
         </div>
       </section>
     </header>
@@ -43,32 +48,79 @@
       <section id="about">
         <div class="col">
           <div class="image">
-            <img src="" alt="picture" />
+            <img src="assets/images/Emisi Rumah Kaca.png" alt="picture" />
           </div>
           <div class="content">
             <h2>Apa itu Emisi Rumah Kaca?</h2>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius,
-              nobis dolorum fugiat quas illo beatae aliquid adipisci itaque et
-              animi voluptatibus unde ipsa similique veniam aliquam eligendi
-              dolore natus, dolor eos amet dicta, minus enim placeat! Dolor,
-              voluptatibus, quod molestias ex corporis omnis eligendi
-              perferendis praesentium temporibus optio, iure nemo dolorem iste
-              suscipit blanditiis recusandae laboriosam doloribus corrupti qui
-              ullam cumque eaque aliquam. Ex in distinctio alias doloremque
-              officiis id magnam aut labore ad animi ipsum nobis minus deleniti,
-              tempora consequuntur rem, iure earum, veritatis voluptatem beatae
-              nulla quisquam placeat explicabo quaerat? Nobis exercitationem
-              ipsum architecto, repellat similique quasi modi molestiae ipsa
-              eaque. Nam, dicta! Incidunt optio vero dignissimos nesciunt
-              aliquid hic distinctio minima et. Eveniet asperiores dolores error
-              iste.
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni
+              delectus aspernatur quae. Ducimus, omnis eos! Nemo eum ipsam
+              architecto dicta, debitis nihil temporibus libero ad odit, tenetur
+              in assumenda ut?
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+              voluptatibus, cumque, voluptates, quia quisquam voluptatibus
+              cumque voluptates quia quisquam voluptatibus cumque voluptates
+              quia quisquam voluptatibus cumque voluptates quia.
             </p>
           </div>
         </div>
       </section>
-      <section id="calculate"></section>
+
+      <section id="calculate">
+        <div class="container">
+          <h1>🌍 Global Emisi Rumah Kaca</h1>
+          <div id="totalCounter" class="counter">0</div>
+          <p>Estimasi pertambahan: <strong>+9.08 ton CO₂/detik</strong></p>
+
+          <section class="gasses">
+            <h2>Breakdown per gas</h2>
+            <ul>
+              <li>
+                CO₂ (Karbon Dioksida): <span id="co2Counter">0</span> ton CO₂
+              </li>
+              <li>CH₄ (Metana): <span id="ch4Counter">0</span> ton CO₂</li>
+              <li>
+                N₂O (Dinitrogen oksida): <span id="n20Counter">0</span> ton CO₂
+              </li>
+              <li>
+                F gas (HFC/PFC/SF₆ & lainnya):
+                <span id="fgasCounter">0</span> ton CO₂
+              </li>
+            </ul>
+          </section>
+
+          <section class="sectors">
+            <h2>Breakdown per sektor</h2>
+            <ul>
+              <li>
+                Energi (Produksi & Pemakaian):
+                <span id="energiCounter">0</span> ton CO₂
+              </li>
+              <li>
+                Transportasi: <span id="transportasiCounter">0</span> ton CO₂
+              </li>
+              <li>Industri: <span id="industriCounter">0</span> ton CO₂</li>
+              <li>Bangunan: <span id="bangunanCounter">0</span> ton CO₂</li>
+              <li>
+                Pertanian, Kehutanan, Lahan:
+                <span id="lahanCounter">0</span> ton CO₂
+              </li>
+              <li>
+                Pembakaran tidak teralokasi:
+                <span id="pembakaranCounter">0</span> ton CO₂
+              </li>
+              <li>Sampah : <span id="sampahCounter">0</span> ton CO₂</li>
+              <li>Limbah : <span id="limbahCounter">0</span> ton CO₂</li>
+            </ul>
+          </section>
+        </div>
+      </section>
     </main>
     <footer></footer>
+
+    <!-- Javascript -->
+    <script src="assets/js/script.js"></script>
   </body>
 </html>
