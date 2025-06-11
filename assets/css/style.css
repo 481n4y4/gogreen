@@ -44,7 +44,7 @@ body {
   max-width: 800px;
 }
 
-#home button {
+button {
   text-decoration: none;
   color: var(--black);
   background-color: var(--brightSun);
@@ -103,10 +103,54 @@ body {
   text-align: justify;
 }
 
+#about .col .content button {
+  margin-top: 1rem;
+}
+
+/* Impact */
+#impact {
+  min-height: 100vh;
+  background-color: white;
+  color: var(--lightGreen);
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+#impact h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+#impact .cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+#impact .card {
+  background-color: var(--honeyDrew);
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#impact .card img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
 /* Calculate */
 #calculate {
   min-height: 100vh;
-  background-color: white;
+  background-color: var(--honeyDrew);
   color: var(--lightGreen);
   padding: 2rem;
   display: flex;
@@ -115,36 +159,85 @@ body {
   font-size: 1rem;
 }
 
-/* Media Query */
-@media (max-width: 768px) {
-  * {
-    font-size: 80%;
+footer {
+  background-color: var(--lightGreen);
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.footer-container {
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  #home h1 {
+    font-size: 3rem;
+  }
+
+  #home p {
+    font-size: 0.9rem;
+    margin: 0 1rem 1rem;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
   }
 
   #about .col {
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  #about .col .image,
-  #about .col .content {
-    flex: unset;
-    width: 100%;
-    max-width: 90%;
   }
 
   #about .col .image img {
     width: 100%;
     max-width: 300px;
-    height: auto;
   }
 
   #about .col .content h2 {
     font-size: 2rem;
   }
 
-  #about .col .content p {
-    font-size: 0.95rem;
+  #impact h2 {
+    font-size: 2rem;
+  }
+
+  #impact .card {
+    width: 90%;
+  }
+
+  #calculate {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  footer {
+    font-size: 0.8rem;
+    padding: 1rem;
+  }
+}
+
+/* Extra small devices (phones) */
+@media screen and (max-width: 480px) {
+  #home h1 {
+    font-size: 2.5rem;
+  }
+
+  #home p {
+    font-size: 0.85rem;
+  }
+
+  button {
+    font-size: 0.8rem;
+    padding: 8px 16px;
+  }
+
+  #about .col .content h2,
+  #impact h2 {
+    font-size: 1.5rem;
   }
 }
