@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Emisi Pribadi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-orange: #F09319;
+            --secondary-yellow: #FFE31A;
+            --light-green: #ABBA7C;
+            --dark-green: #3D5300;
+            --gray-light: #f9fafb;
+            --gray-medium: #d1d5db;
+            --gray-dark: #374151;
+            --gray-text: #1f2937;
+            --gray-text-light: #4b5563;
+            --gray-text-lighter: #6b7280;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: var(--light-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem; 
+            margin: 0;
+            box-sizing: border-box; 
+        }
+
+        /* Kontainer Utama Kalkulator */
+        .calculator-container {
+            background-color: #FFFFFF;
+            padding: 2rem; 
+            border-radius: 1rem; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+            width: 100%; 
+            border: 1px solid #e5e7eb; 
+            min-height: 95vh;
+            display: flex;
+            flex-direction: column; 
+        }
+
+        /* Judul H1 */
+        .main-title {
+            font-size: 1.875rem; 
+            font-weight: 800; 
+            text-align: center;
+            color: var(--gray-text); 
+            margin-bottom: 2rem; 
+            letter-spacing: -0.025em; 
+            flex-shrink: 0; 
+        }
+
+        /* Navbar */
+        .navbar {
+            margin-bottom: 2rem; 
+            padding: 1rem; 
+            background-color: var(--gray-light); 
+            border-radius: 0.75rem; 
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06); 
+            border: 1px solid #f3f4f6; 
+            flex-shrink: 0; 
+        }
+
+        .navbar-list {
+            display: flex;
+            justify-content: center;
+            gap: 1rem; 
+            overflow-x: auto; 
+            list-style: none; 
+            padding-left: 0; 
+        }
+
+        /* Media query untuk space-x-8 di md (tablet ke atas) */
+        @media (min-width: 768px) { /* md breakpoint */
+            .navbar-list {
+                gap: 2rem; /* space-x-8 */
+            }
+        }
+
+        .navbar-item {
+            flex-shrink: 0; /* Mencegah item menu mengecil */
+        }
+
+        /* Tombol Navigasi */
+        .nav-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem; 
+            border-radius: 0.5rem; 
+            font-weight: 500; 
+            transition: all 0.2s ease-in-out; 
+            white-space: nowrap; 
+            background-color: var(--light-green);
+            color: var(--gray-dark);
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-button:hover {
+            background-color: var(--secondary-yellow); 
+            color: var(--dark-green); 
+        }
+
+        .nav-button.active {
+            background-color: var(--primary-orange);
+            color: #FFFFFF; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Kontainer Konten (halaman) */
+        .content-container {
+            flex-grow: 1; 
+            overflow-y: auto;
+            padding: 0.5rem 1rem; 
+        }
+        /* Styling scrollbar untuk content-container */
+        .content-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        .content-container::-webkit-scrollbar-thumb {
+            background-color: var(--light-green);
+            border-radius: 4px;
+        }
+        .content-container::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+        }
+
+        /* Halaman (Home, Transportation, etc.) */
+        .page {
+            text-align: center;
+            padding: 1.5rem; 
+        }
+
+        .page.hidden {
+            display: none;
+        }
+
+        /* Sub-judul H2 */
+        .sub-title {
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            color: var(--gray-text); 
+            margin-bottom: 1.5rem; 
+            text-align: center;
+        }
+
+        /* Grup Input */
+        .input-group {
+            margin-bottom: 1rem; 
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem; 
+            color: var(--gray-dark); 
+            font-size: 0.875rem; 
+            font-weight: 500; 
+            margin-bottom: 0.5rem; 
+        }
+
+        /* Input dan Select Field */
+        .input-field {
+            width: 100%; 
+            padding: 0.75rem; 
+            border: 1px solid var(--gray-medium); 
+            border-radius: 0.5rem; 
+            transition: all 0.2s ease-in-out; 
+        }
+
+        .input-field:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--light-green); 
+            border-color: var(--primary-orange); 
+        }
+
+        /* Hasil Emisi */
+        .results-box {
+            background-color: rgba(171, 186, 124, 0.3); 
+            padding: 1.5rem; 
+            border-radius: 0.75rem;
+            border: 4px solid var(--light-green);
+            display: inline-block;
+        }
+
+        .results-text-label {
+            color: var(--gray-text-light); 
+            font-size: 1.125rem; 
+            margin-bottom: 0.5rem; 
+        }
+
+        .results-value {
+            font-size: 3rem; 
+            font-weight: 800;
+            color: var(--dark-green); 
+        }
+
+        .results-note {
+            color: var(--gray-text-lighter); 
+            font-size: 0.875rem;
+            margin-top: 1rem; 
+        }
+
+        /* Tombol Restart */
+        .restart-button {
+            margin-top: 2rem; 
+            padding: 0.75rem 1.5rem; 
+            background-color: var(--primary-orange); 
+            color: #FFFFFF; 
+            font-weight: 600; 
+            border-radius: 0.5rem; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.2s ease-in-out; 
+            border: none;
+            cursor: pointer;
+        }
+
+        .restart-button:hover {
+            background-color: #e57e00; 
+        }
+
+        .restart-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px var(--secondary-yellow); 
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-[#ABBA7C] to-white flex items-center justify-center p-4">
+    <div class="calculator-container">
+        <h1 class="main-title">
+            Kalkulator Emisi Pribadi
+        </h1>
+
+        <!-- Navbar Component -->
+        <nav class="navbar">
+            <ul class="navbar-list">
+                <!-- Nav Items -->
+                <li class="navbar-item">
+                    <button id="nav-transportation" class="nav-button">
+                        <span class="text-xl">🚗</span>
+                        <span>Transportasi</span>
+                    </button>
+                </li>
+                <li class="navbar-item">
+                    <button id="nav-homeEnergy" class="nav-button">
+                        <span class="text-xl">💡</span>
+                        <span>Energi Rumah</span>
+                    </button>
+                </li>
+                <li class="navbar-item">
+                    <button id="nav-food" class="nav-button">
+                        <span class="text-xl">🍔</span>
+                        <span>Makanan</span>
+                    </button>
+                </li>
+                <li class="navbar-item">
+                    <button id="nav-results" class="nav-button">
+                        <span class="text-xl">📊</span>
+                        <span>Hasil</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Content Pages -->
+        <div id="content-container" class="content-container">
+            <!-- Home Page -->
+            <div id="page-home" class="page">
+                <h2 class="sub-title">Selamat Datang di Kalkulator Emisi!</h2>
+                <p class="text-gray-600">
+                    Pilih kategori di atas untuk mulai menghitung jejak karbon Anda.
+                </p>
+                <p class="text-gray-500 text-sm mt-2">
+                    (Data akan disimpan saat Anda beralih antar kategori.)
+                </p>
+            </div>
+
+            <!-- Transportation Page -->
+            <div id="page-transportation" class="page hidden">
+                <h2 class="sub-title">Transportasi</h2>
+
+                <div class="input-group">
+                    <label for="carDistance" class="input-label">
+                        <span class="text-2xl">🚘</span>
+                        <span>Jarak Tempuh Mobil (km/bulan):</span>
+                    </label>
+                    <input type="number" id="carDistance" placeholder="e.g., 500" min="0" class="input-field">
+                </div>
+                <div class="input-group">
+                    <label for="carFuelType" class="input-label">
+                        <span class="text-2xl">⛽</span>
+                        <span>Jenis Bahan Bakar Mobil:</span>
+                    </label>
+                    <select id="carFuelType" class="input-field">
+                        <option value="gasoline">Bensin</option>
+                        <option value="diesel">Solar</option>
+                        <option value="electric">Listrik</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="motorcycleDistance" class="input-label">
+                        <span class="text-2xl">🏍️</span>
+                        <span>Jarak Tempuh Motor (km/bulan):</span>
+                    </label>
+                    <input type="number" id="motorcycleDistance" placeholder="e.g., 300" min="0" class="input-field">
+                </div>
+                <div class="input-group">
+                    <label for="motorcycleFuelType" class="input-label">
+                        <span class="text-2xl">⛽</span>
+                        <span>Jenis Bahan Bakar Motor:</span>
+                    </label>
+                    <select id="motorcycleFuelType" class="input-field">
+                        <option value="gasoline">Bensin</option>
+                        <option value="diesel">Solar</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="busDistance" class="input-label">
+                        <span class="text-2xl">🚌</span>
+                        <span>Jarak Tempuh Bus/Transportasi Umum (km/bulan):</span>
+                    </label>
+                    <input type="number" id="busDistance" placeholder="e.g., 100" min="0" class="input-field">
+                </div>
+                <div class="input-group">
+                    <label for="trainDistance" class="input-label">
+                        <span class="text-2xl">🚂</span>
+                        <span>Jarak Tempuh Kereta Api (km/bulan):</span>
+                    </label>
+                    <input type="number" id="trainDistance" placeholder="e.g., 200" min="0" class="input-field">
+                </div>
+            </div>
+
+            <!-- Home Energy Page -->
+            <div id="page-homeEnergy" class="page hidden">
+                <h2 class="sub-title">Energi Rumah Tangga</h2>
+
+                <div class="input-group">
+                    <label for="electricityKwh" class="input-label">
+                        <span class="text-2xl">💡</span>
+                        <span>Penggunaan Listrik (kWh/bulan):</span>
+                    </label>
+                    <input type="number" id="electricityKwh" placeholder="e.g., 150" min="0" class="input-field">
+                </div>
+                <div class="input-group">
+                    <label for="gasKg" class="input-label">
+                        <span class="text-2xl">🔥</span>
+                        <span>Penggunaan Gas LPG (kg/bulan):</span>
+                    </label>
+                    <input type="number" id="gasKg" placeholder="e.g., 5" min="0" class="input-field">
+                </div>
+            </div>
+
+            <!-- Food Page -->
+            <div id="page-food" class="page hidden">
+                <h2 class="sub-title">Makanan & Minuman</h2>
+
+                <div class="input-group">
+                    <label for="redMeatKg" class="input-label">
+                        <span class="text-2xl">🥩</span>
+                        <span>Konsumsi Daging Merah (kg/bulan):</span>
+                    </label>
+                    <input type="number" id="redMeatKg" placeholder="e.g., 2" min="0" class="input-field">
+                </div>
+                <div class="input-group">
+                    <label for="chickenKg" class="input-label">
+                        <span class="text-2xl">🍗</span>
+                        <span>Konsumsi Daging Ayam (kg/bulan):</span>
+                    </label>
+                    <input type="number" id="chickenKg" placeholder="e.g., 3" min="0" class="input-field">
+                </div>
+                <div class="input-group">
+                    <label for="riceKg" class="input-label">
+                        <span class="text-2xl">🍚</span>
+                        <span>Konsumsi Nasi (kg/bulan):</span>
+                    </label>
+                    <input type="number" id="riceKg" placeholder="e.g., 10" min="0" class="input-field">
+                </div>
+                <div class="input-group">
+                    <label for="vegetablesKg" class="input-label">
+                        <span class="text-2xl">🥦</span>
+                        <span>Konsumsi Sayuran (kg/bulan):</span>
+                    </label>
+                    <input type="number" id="vegetablesKg" placeholder="e.g., 8" min="0" class="input-field">
+                </div>
+            </div>
+
+            <!-- Results Page -->
+            <div id="page-results" class="page hidden">
+                <h2 class="sub-title">Hasil Perhitungan Emisi</h2>
+                <div class="results-box">
+                    <p class="results-text-label">Total Emisi Karbon Anda (per bulan):</p>
+                    <p id="totalEmissionsResult" class="results-value">
+                        0.00 kg CO2e
+                    </p>
+                </div>
+                <p class="results-note">
+                    *(Angka ini adalah perkiraan dan bergantung pada data input serta faktor emisi yang digunakan.)
+                </p>
+
+                <!-- Tombol Restart -->
+                <div class="input-group">
+                    <button id="restartButton" class="restart-button">
+                        Mulai Ulang
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const navButtons = {
+            transportation: document.getElementById('nav-transportation'),
+            homeEnergy: document.getElementById('nav-homeEnergy'),
+            food: document.getElementById('nav-food'),
+            results: document.getElementById('nav-results')
+        };
+        const pages = {
+            home: document.getElementById('page-home'),
+            transportation: document.getElementById('page-transportation'),
+            homeEnergy: document.getElementById('page-homeEnergy'),
+            food: document.getElementById('page-food'),
+            results: document.getElementById('page-results')
+        };
+        const restartButton = document.getElementById('restartButton');
+        const totalEmissionsResult = document.getElementById('totalEmissionsResult');
+
+        // State untuk menyimpan data input emisi
+        let emissionData = {
+            transportation: {
+                carDistance: '',
+                carFuelType: 'gasoline',
+                motorcycleDistance: '',
+                motorcycleFuelType: 'gasoline',
+                busDistance: '',
+                trainDistance: '',
+            },
+            homeEnergy: {
+                electricityKwh: '',
+                gasKg: '',
+            },
+            food: {
+                redMeatKg: '',
+                chickenKg: '',
+                riceKg: '',
+                vegetablesKg: '',
+            },
+        };
+
+        // Faktor emisi (kg CO2e per unit) - Angka-angka ini adalah estimasi berdasarkan data yang tersedia.
+        // Untuk akurasi tertinggi, disarankan merujuk pada laporan resmi dari instansi pemerintah terkait (misalnya KLHK)
+        // atau penelitian ilmiah terkini yang lebih terlokalisasi di Indonesia.
+        const emissionFactors = {
+            // Transportasi
+            // Asumsi konsumsi bahan bakar: mobil bensin ~10 km/liter, mobil diesel ~12 km/liter.
+            // Motor bensin ~30 km/liter, motor diesel ~35 km/liter.
+            carGasoline: 2.3,   // kg CO2e per liter bensin (rata-rata, sumber global/studi lokal)
+            carDiesel: 2.6,     // kg CO2e per liter solar (rata-rata, sumber global/studi lokal)
+            carElectric: 0.05,  // kg CO2e per km (dari produksi listrik di Indonesia, perkiraan)
+            motorcycleGasoline: 2.0, // kg CO2e per liter bensin (rata-rata, sumber global/studi lokal)
+            motorcycleDiesel: 2.3,   // kg CO2e per liter solar (rata-rata, sumber global/studi lokal)
+            bus: 0.1,           // kg CO2e per km per orang (perkiraan umum, bisa bervariasi)
+            train: 0.05,        // kg CO2e per km per orang (perkiraan umum, umumnya lebih efisien)
+
+            // Energi Rumah Tangga
+            // Faktor emisi PLN di Indonesia sering disebut sekitar 0.8 - 0.85 kg CO2e/kWh.
+            // Faktor emisi LPG 3 kg/kg berdasarkan beberapa laporan.
+            electricity: 0.8,   // kg CO2e per kWh (rata-rata emisi grid listrik Indonesia)
+            gasLPG: 3.0,        // kg CO2e per kg LPG (berdasarkan konversi dan studi)
+
+            // Makanan
+            // Angka-angka ini adalah estimasi global yang sering dikutip, yang juga relevan untuk konteks Indonesia.
+            // Emisi daging merah (sapi/kambing) jauh lebih tinggi. Nasi juga memiliki emisi signifikan.
+            redMeat: 27,        // kg CO2e per kg (estimasi global, konsisten dengan data sapi/kambing)
+            chicken: 6.9,       // kg CO2e per kg (estimasi global)
+            rice: 2.7,          // kg CO2e per kg (estimasi global, produksi padi signifikan)
+            vegetables: 0.7,    // kg CO2e per kg (estimasi global, rendah)
+        };
+
+        // Fungsi untuk menampilkan halaman yang dipilih
+        function showPage(pageId) {
+            // Sembunyikan semua halaman
+            for (let id in pages) {
+                pages[id].classList.add('hidden');
+            }
+            // Tampilkan halaman yang dipilih
+            pages[pageId].classList.remove('hidden');
+
+            // Hapus kelas aktif dari semua tombol navigasi
+            for (let id in navButtons) {
+                if (navButtons[id]) { // Pastikan tombol ada
+                    navButtons[id].classList.remove('active');
+                }
+            }
+            // Tambahkan kelas aktif ke tombol navigasi yang dipilih
+            if (navButtons[pageId]) { // Pastikan tombol ada
+                 navButtons[pageId].classList.add('active');
+            }
+        }
+
+        // Fungsi untuk menangani perubahan input
+        function handleInputChange(category, field, value) {
+            emissionData[category][field] = value;
+            calculateTotalEmissions();
+        }
+
+        // Fungsi untuk menghitung total emisi
+        function calculateTotalEmissions() {
+            let emissions = 0;
+
+            // Transportasi
+            const trans = emissionData.transportation;
+            const carDist = parseFloat(trans.carDistance) || 0;
+            if (carDist > 0) {
+                if (trans.carFuelType === 'gasoline') {
+                    emissions += (carDist / 10) * emissionFactors.carGasoline; // liter bensin
+                } else if (trans.carFuelType === 'diesel') {
+                    emissions += (carDist / 12) * emissionFactors.carDiesel; // liter solar
+                } else if (trans.carFuelType === 'electric') {
+                    emissions += carDist * emissionFactors.carElectric; // km
+                }
+            }
+            const motorDist = parseFloat(trans.motorcycleDistance) || 0;
+            if (motorDist > 0) {
+                 if (trans.motorcycleFuelType === 'gasoline') {
+                    emissions += (motorDist / 30) * emissionFactors.motorcycleGasoline; // liter bensin
+                 } else if (trans.motorcycleFuelType === 'diesel') {
+                    emissions += (motorDist / 35) * emissionFactors.motorcycleDiesel; // liter solar
+                 }
+            }
+            emissions += (parseFloat(trans.busDistance) || 0) * emissionFactors.bus;
+            emissions += (parseFloat(trans.trainDistance) || 0) * emissionFactors.train;
+
+            // Energi Rumah Tangga
+            const home = emissionData.homeEnergy;
+            emissions += (parseFloat(home.electricityKwh) || 0) * emissionFactors.electricity;
+            emissions += (parseFloat(home.gasKg) || 0) * emissionFactors.gasLPG;
+
+            // Makanan
+            const food = emissionData.food;
+            emissions += (parseFloat(food.redMeatKg) || 0) * emissionFactors.redMeat;
+            emissions += (parseFloat(food.chickenKg) || 0) * emissionFactors.chicken;
+            emissions += (parseFloat(food.riceKg) || 0) * emissionFactors.rice;
+            emissions += (parseFloat(food.vegetablesKg) || 0) * emissionFactors.vegetables;
+
+            totalEmissionsResult.textContent = `${emissions.toFixed(2)} kg CO2e`;
+        }
+
+        // Fungsi untuk mereset kalkulator
+        function resetCalculator() {
+            emissionData = {
+                transportation: {
+                    carDistance: '',
+                    carFuelType: 'gasoline',
+                    motorcycleDistance: '',
+                    motorcycleFuelType: 'gasoline',
+                    busDistance: '',
+                    trainDistance: '',
+                },
+                homeEnergy: {
+                    electricityKwh: '',
+                    gasKg: '',
+                },
+                food: {
+                    redMeatKg: '',
+                    chickenKg: '',
+                    riceKg: '',
+                    vegetablesKg: '',
+                },
+            };
+
+            // Reset input fields
+            document.getElementById('carDistance').value = '';
+            document.getElementById('carFuelType').value = 'gasoline';
+            document.getElementById('motorcycleDistance').value = '';
+            document.getElementById('motorcycleFuelType').value = 'gasoline';
+            document.getElementById('busDistance').value = '';
+            document.getElementById('trainDistance').value = '';
+            document.getElementById('electricityKwh').value = '';
+            document.getElementById('gasKg').value = '';
+            document.getElementById('redMeatKg').value = '';
+            document.getElementById('chickenKg').value = '';
+            document.getElementById('riceKg').value = '';
+            document.getElementById('vegetablesKg').value = '';
+
+            calculateTotalEmissions(); // Hitung ulang untuk menampilkan 0.00
+            showPage('home'); // Kembali ke halaman utama
+        }
+
+        // Event Listeners untuk navigasi
+        navButtons.transportation.addEventListener('click', () => showPage('transportation'));
+        navButtons.homeEnergy.addEventListener('click', () => showPage('homeEnergy'));
+        navButtons.food.addEventListener('click', () => showPage('food'));
+        navButtons.results.addEventListener('click', () => showPage('results'));
+
+        // Event Listener untuk tombol restart
+        restartButton.addEventListener('click', resetCalculator);
+
+        // Event Listeners untuk input fields (transportasi)
+        document.getElementById('carDistance').addEventListener('input', (e) => handleInputChange('transportation', 'carDistance', e.target.value));
+        document.getElementById('carFuelType').addEventListener('change', (e) => handleInputChange('transportation', 'carFuelType', e.target.value));
+        document.getElementById('motorcycleDistance').addEventListener('input', (e) => handleInputChange('transportation', 'motorcycleDistance', e.target.value));
+        document.getElementById('motorcycleFuelType').addEventListener('change', (e) => handleInputChange('transportation', 'motorcycleFuelType', e.target.value));
+        document.getElementById('busDistance').addEventListener('input', (e) => handleInputChange('transportation', 'busDistance', e.target.value));
+        document.getElementById('trainDistance').addEventListener('input', (e) => handleInputChange('transportation', 'trainDistance', e.target.value));
+
+        // Event Listeners untuk input fields (energi rumah)
+        document.getElementById('electricityKwh').addEventListener('input', (e) => handleInputChange('homeEnergy', 'electricityKwh', e.target.value));
+        document.getElementById('gasKg').addEventListener('input', (e) => handleInputChange('homeEnergy', 'gasKg', e.target.value));
+
+        // Event Listeners untuk input fields (makanan)
+        document.getElementById('redMeatKg').addEventListener('input', (e) => handleInputChange('food', 'redMeatKg', e.target.value));
+        document.getElementById('chickenKg').addEventListener('input', (e) => handleInputChange('food', 'chickenKg', e.target.value));
+        document.getElementById('riceKg').addEventListener('input', (e) => handleInputChange('food', 'riceKg', e.target.value));
+        document.getElementById('vegetablesKg').addEventListener('input', (e) => handleInputChange('food', 'vegetablesKg', e.target.value));
+
+        // Inisialisasi: Tampilkan halaman "home" saat pertama kali dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('home');
+            calculateTotalEmissions(); // Hitung emisi awal (akan 0.00)
+        });
+    </script>
+</body>
+</html>
