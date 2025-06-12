@@ -144,52 +144,268 @@
       </section>
 
       <section id="calculate">
-        <div class="container">
-          <h1>🌍 Global Emisi Rumah Kaca</h1>
-          <div id="totalCounter" class="counter">0</div>
-          <p>Estimasi pertambahan: <strong>+9.08 ton CO₂/detik</strong></p>
+        <h1 class="main-title">Kalkulator Emisi Pribadi</h1>
+        <div class="calculator-container">
 
-          <section class="gasses">
-            <h2>Breakdown per gas</h2>
-            <ul>
-              <li>
-                CO₂ (Karbon Dioksida): <span id="co2Counter">0</span> ton CO₂
+          <!-- Navbar Component -->
+          <nav class="navbar">
+            <ul class="navbar-list">
+              <!-- Nav Items -->
+              <li class="navbar-item">
+                <button id="nav-transportation" class="nav-button">
+                  <span class="text-xl">🚗</span>
+                  <span>Transportasi</span>
+                </button>
               </li>
-              <li>CH₄ (Metana): <span id="ch4Counter">0</span> ton CO₂</li>
-              <li>
-                N₂O (Dinitrogen oksida): <span id="n20Counter">0</span> ton CO₂
+              <li class="navbar-item">
+                <button id="nav-homeEnergy" class="nav-button">
+                  <span class="text-xl">💡</span>
+                  <span>Energi Rumah</span>
+                </button>
               </li>
-              <li>
-                F gas (HFC/PFC/SF₆ & lainnya):
-                <span id="fgasCounter">0</span> ton CO₂
+              <li class="navbar-item">
+                <button id="nav-food" class="nav-button">
+                  <span class="text-xl">🍔</span>
+                  <span>Makanan</span>
+                </button>
+              </li>
+              <li class="navbar-item">
+                <button id="nav-results" class="nav-button">
+                  <span class="text-xl">📊</span>
+                  <span>Hasil</span>
+                </button>
               </li>
             </ul>
-          </section>
+          </nav>
 
-          <section class="sectors">
-            <h2>Breakdown per sektor</h2>
-            <ul>
-              <li>
-                Energi (Produksi & Pemakaian):
-                <span id="energiCounter">0</span> ton CO₂
-              </li>
-              <li>
-                Transportasi: <span id="transportasiCounter">0</span> ton CO₂
-              </li>
-              <li>Industri: <span id="industriCounter">0</span> ton CO₂</li>
-              <li>Bangunan: <span id="bangunanCounter">0</span> ton CO₂</li>
-              <li>
-                Pertanian, Kehutanan, Lahan:
-                <span id="lahanCounter">0</span> ton CO₂
-              </li>
-              <li>
-                Pembakaran tidak teralokasi:
-                <span id="pembakaranCounter">0</span> ton CO₂
-              </li>
-              <li>Sampah : <span id="sampahCounter">0</span> ton CO₂</li>
-              <li>Limbah : <span id="limbahCounter">0</span> ton CO₂</li>
-            </ul>
-          </section>
+          <!-- Content Pages -->
+          <div id="content-container" class="content-container">
+            <!-- Home Page -->
+            <div id="page-home" class="page">
+              <h2 class="sub-title">Selamat Datang di Kalkulator Emisi!</h2>
+              <p class="text-gray-600">
+                Pilih kategori di atas untuk mulai menghitung jejak karbon Anda.
+              </p>
+              <p class="text-gray-500 text-sm mt-2">
+                (Data akan disimpan saat Anda beralih antar kategori.)
+              </p>
+              <div class="pager">
+                <button class="next-btn" data-next="transportation">
+                  Mulai
+                </button>
+              </div>
+            </div>
+
+            <!-- Transportation Page -->
+            <div id="page-transportation" class="page hidden">
+              <h2 class="sub-title">Transportasi</h2>
+
+              <div class="input-group">
+                <label for="carDistance" class="input-label">
+                  <span class="text-2xl">🚘</span>
+                  <span>Jarak Tempuh Mobil (km/bulan):</span>
+                </label>
+                <input
+                  type="number"
+                  id="carDistance"
+                  placeholder="e.g., 500"
+                  min="0"
+                  class="input-field"
+                />
+              </div>
+              <div class="input-group">
+                <label for="carFuelType" class="input-label">
+                  <span class="text-2xl">⛽</span>
+                  <span>Jenis Bahan Bakar Mobil:</span>
+                </label>
+                <select id="carFuelType" class="input-field">
+                  <option value="gasoline">Bensin</option>
+                  <option value="diesel">Solar</option>
+                  <option value="electric">Listrik</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label for="motorcycleDistance" class="input-label">
+                  <span class="text-2xl">🏍️</span>
+                  <span>Jarak Tempuh Motor (km/bulan):</span>
+                </label>
+                <input
+                  type="number"
+                  id="motorcycleDistance"
+                  placeholder="e.g., 300"
+                  min="0"
+                  class="input-field"
+                />
+              </div>
+              <div class="input-group">
+                <label for="motorcycleFuelType" class="input-label">
+                  <span class="text-2xl">⛽</span>
+                  <span>Jenis Bahan Bakar Motor:</span>
+                </label>
+                <select id="motorcycleFuelType" class="input-field">
+                  <option value="gasoline">Bensin</option>
+                  <option value="diesel">Solar</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label for="busDistance" class="input-label">
+                  <span class="text-2xl">🚌</span>
+                  <span>Jarak Tempuh Bus/Transportasi Umum (km/bulan):</span>
+                </label>
+                <input
+                  type="number"
+                  id="busDistance"
+                  placeholder="e.g., 100"
+                  min="0"
+                  class="input-field"
+                />
+              </div>
+              <div class="input-group">
+                <label for="trainDistance" class="input-label">
+                  <span class="text-2xl">🚂</span>
+                  <span>Jarak Tempuh Kereta Api (km/bulan):</span>
+                </label>
+                <input
+                  type="number"
+                  id="trainDistance"
+                  placeholder="e.g., 200"
+                  min="0"
+                  class="input-field"
+                />
+              </div>
+              <div class="pager">
+                <button class="next-btn" data-next="homeEnergy">Next</button>
+              </div>
+            </div>
+
+            <!-- Home Energy Page -->
+            <div id="page-homeEnergy" class="page hidden">
+              <h2 class="sub-title">Energi Rumah Tangga</h2>
+
+              <div class="input-group">
+                <label for="electricityKwh" class="input-label">
+                  <span class="text-2xl">💡</span>
+                  <span>Penggunaan Listrik (kWh/bulan):</span>
+                </label>
+                <input
+                  type="number"
+                  id="electricityKwh"
+                  placeholder="e.g., 150"
+                  min="0"
+                  class="input-field"
+                />
+              </div>
+              <div class="input-group">
+                <label for="gasKg" class="input-label">
+                  <span class="text-2xl">🔥</span>
+                  <span>Penggunaan Gas LPG (kg/bulan):</span>
+                </label>
+                <input
+                  type="number"
+                  id="gasKg"
+                  placeholder="e.g., 5"
+                  min="0"
+                  class="input-field"
+                />
+              </div>
+              <div class="pager">
+                <button class="prev-btn" data-prev="transportation">
+                  Previous
+                </button>
+                <button class="next-btn" data-next="food">Next</button>
+              </div>
+            </div>
+
+            <!-- Food Page -->
+            <div id="page-food" class="page hidden">
+              <h2 class="sub-title">Makanan & Minuman</h2>
+
+              <div class="input-group">
+                <label for="redMeatKg" class="input-label">
+                  <span class="text-2xl">🥩</span>
+                  <span>Konsumsi Daging Merah (kg/bulan):</span>
+                </label>
+                <input
+                  type="number"
+                  id="redMeatKg"
+                  placeholder="e.g., 2"
+                  min="0"
+                  class="input-field"
+                />
+              </div>
+              <div class="input-group">
+                <label for="chickenKg" class="input-label">
+                  <span class="text-2xl">🍗</span>
+                  <span>Konsumsi Daging Ayam (kg/bulan):</span>
+                </label>
+                <input
+                  type="number"
+                  id="chickenKg"
+                  placeholder="e.g., 3"
+                  min="0"
+                  class="input-field"
+                />
+              </div>
+              <div class="input-group">
+                <label for="riceKg" class="input-label">
+                  <span class="text-2xl">🍚</span>
+                  <span>Konsumsi Nasi (kg/bulan):</span>
+                </label>
+                <input
+                  type="number"
+                  id="riceKg"
+                  placeholder="e.g., 10"
+                  min="0"
+                  class="input-field"
+                />
+              </div>
+              <div class="input-group">
+                <label for="vegetablesKg" class="input-label">
+                  <span class="text-2xl">🥦</span>
+                  <span>Konsumsi Sayuran (kg/bulan):</span>
+                </label>
+                <input
+                  type="number"
+                  id="vegetablesKg"
+                  placeholder="e.g., 8"
+                  min="0"
+                  class="input-field"
+                />
+              </div>
+              <div class="pager">
+                <button class="prev-btn" data-prev="homeEnergy">
+                  Previous
+                </button>
+                <button class="next-btn" data-next="results">Next</button>
+              </div>
+            </div>
+
+            <!-- Results Page -->
+            <div id="page-results" class="page hidden">
+              <h2 class="sub-title">Hasil Perhitungan Emisi</h2>
+              <div class="results-box">
+                <p class="results-text-label">
+                  Total Emisi Karbon Anda (per bulan):
+                </p>
+                <p id="totalEmissionsResult" class="results-value">
+                  0.00 kg CO2e
+                </p>
+              </div>
+              <p class="results-note">
+                *(Angka ini adalah perkiraan dan bergantung pada data input
+                serta faktor emisi yang digunakan.)
+              </p>
+
+              <!-- Tombol Restart -->
+              <div class="input-group">
+                <button id="restartButton" class="restart-button">
+                  Mulai Ulang
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
@@ -201,6 +417,7 @@
     </footer>
 
     <!-- Javascript -->
+    <script src="assets/js/calculate.js"></script>
     <script src="assets/js/script.js"></script>
   </body>
 </html>

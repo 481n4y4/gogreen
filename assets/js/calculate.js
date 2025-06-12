@@ -263,3 +263,18 @@ document.addEventListener("DOMContentLoaded", () => {
   showPage("home");
   calculateTotalEmissions(); // Hitung emisi awal (akan 0.00)
 });
+
+// Listener tombol Next dan Previous
+document.querySelectorAll(".next-btn").forEach((button) => {
+  button.addEventListener("click", () => {
+    const next = button.getAttribute("data-next");
+    showPage(next);
+  });
+});
+
+document.querySelectorAll(".prev-btn").forEach((button) => {
+  button.addEventListener("click", () => {
+    const prev = button.getAttribute("data-prev");
+    showPage(prev);
+  });
+});
