@@ -30,10 +30,12 @@
         <div class="container">
           <h1>GoGreen</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut unde
-            molestias iusto nihil sint amet consequuntur voluptas possimus
-            maiores dicta tempore impedit earum fuga ipsa, iure deleniti natus
-            ipsum blanditiis.
+            GoGreen adalah alat bantu interaktif yang dirancang untuk membantu
+            Anda menghitung emisi gas rumah kaca (GRK) dari aktivitas
+            sehari-hari, seperti transportasi, konsumsi energi, dan pola
+            konsumsi. Dengan memahami jejak karbon pribadi Anda, Anda bisa
+            mengambil keputusan yang lebih bijak untuk mengurangi dampak
+            terhadap perubahan iklim.
           </p>
           <button
             type="button"
@@ -53,23 +55,37 @@
           <div class="content">
             <h2>Apa itu Emisi Rumah Kaca?</h2>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni
-              delectus aspernatur quae. Ducimus, omnis eos! Nemo eum ipsam
-              architecto dicta, debitis nihil temporibus libero ad odit, tenetur
-              in assumenda ut?
+              Emisi Rumah Kaca adalah pelepasan gas-gas tertentu ke atmosfer
+              yang menyebabkan efek rumah kaca, yaitu proses pemanasan suhu
+              permukaan bumi. Gas-gas ini dikenal sebagai gas rumah kaca (GRK),
+              dan yang paling umum meliputi:
             </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-              voluptatibus, cumque, voluptates, quia quisquam voluptatibus
-              cumque voluptates quia quisquam voluptatibus cumque voluptates
-              quia quisquam voluptatibus cumque voluptates quia.
-            </p>
-            <button
-              type="button"
-              onclick="document.getElementById('impact').scrollIntoView({ behavior: 'smooth' })"
-            >
-              Lalu apa dampaknya??
-            </button>
+            <ul>
+              <li>
+                <strong>Karbon dioksida (CO₂)</strong> dari pembakaran bahan
+                bakar fosil seperti bensin, batu bara, dan gas alam.
+              </li>
+              <li>
+                <strong>Metana (CH₄)</strong> dari pertanian, peternakan, dan
+                tempat pembuangan sampah.
+              </li>
+              <li>
+                <strong>Dinitrogen oksida (N₂O)</strong> dari penggunaan pupuk
+                dan pembakaran biomassa.
+              </li>
+              <li>
+                <strong>Gas fluorinated</strong> dari proses industri dan produk
+                elektronik.
+              </li>
+            </ul>
+            <div class="btns">
+              <button
+                type="button"
+                onclick="document.getElementById('impact').scrollIntoView({ behavior: 'smooth' })"
+              >
+                Lalu apa dampaknya?
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -80,56 +96,41 @@
           <div class="cards">
             <div class="card">
               <div class="images">
-                <img
-                  src="https://www.zica.co.zm/wp-content/uploads/2021/02/dummy-profile-image.png"
-                  alt="impact"
-                />
+                <img src="assets/images/10.png" alt="impact" />
               </div>
               <div class="content">
-                <h3>🌡️ Perubahan Iklim</h3>
+                <h3>🌡️ 1. Perubahan Iklim</h3>
 
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Quisquam voluptatibus, cumque, voluptates, quia quisquam
-                  voluptatibus cumque voluptates quia quisquam voluptatibus
-                  cumque voluptates quia quisquam voluptatibus cumque voluptates
-                  quia.
+                  Peningkatan konsentrasi GRK menyebabkan suhu rata-rata bumi
+                  naik. Ini dikenal sebagai pemanasan global, yang memicu
+                  berbagai perubahan iklim ekstrem.
                 </p>
               </div>
             </div>
             <div class="card">
               <div class="images">
-                <img
-                  src="https://www.zica.co.zm/wp-content/uploads/2021/02/dummy-profile-image.png"
-                  alt="impact"
-                />
+                <img src="assets/images/12.png" alt="impact" />
               </div>
               <div class="content">
-                <h3>🌡️ Perubahan Iklim</h3>
+                <h3>🌾 2. Gangguan pada Pertanian dan Ketahanan Pangan</h3>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Quisquam voluptatibus, cumque, voluptates, quia quisquam
-                  voluptatibus cumque voluptates quia quisquam voluptatibus
-                  cumque voluptates quia quisquam voluptatibus cumque voluptates
-                  quia.
+                  Perubahan iklim dapat merusak hasil panen, mengganggu musim
+                  tanam, dan menurunkan produktivitas lahan—mengancam ketahanan
+                  pangan global.
                 </p>
               </div>
             </div>
             <div class="card">
               <div class="images">
-                <img
-                  src="https://www.zica.co.zm/wp-content/uploads/2021/02/dummy-profile-image.png"
-                  alt="impact"
-                />
+                <img src="assets/images/11.png" alt="impact" />
               </div>
               <div class="content">
-                <h3>🌡️ Perubahan Iklim</h3>
+                <h3>🌊 3. Kenaikan Permukaan Laut</h3>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Quisquam voluptatibus, cumque, voluptates, quia quisquam
-                  voluptatibus cumque voluptates quia quisquam voluptatibus
-                  cumque voluptates quia quisquam voluptatibus cumque voluptates
-                  quia.
+                  Air dari es yang mencair dan pemuaian air laut karena
+                  pemanasan menyebabkan permukaan laut naik, mengancam wilayah
+                  pesisir dan pulau-pulau kecil dengan banjir atau tenggelam.
                 </p>
               </div>
             </div>
@@ -146,7 +147,6 @@
       <section id="calculate">
         <h1 class="main-title">Kalkulator Emisi Pribadi</h1>
         <div class="calculator-container">
-
           <!-- Navbar Component -->
           <nav class="navbar">
             <ul class="navbar-list">
