@@ -16,10 +16,12 @@
   --gray-text-lighter: #6b7280;
 }
 
-* {
-  box-sizing: border-box;
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -28,31 +30,6 @@ body {
   color: var(--lightGreen);
   margin: 0;
   padding: 0;
-}
-
-/* Home/landing page */
-#home {
-  background-image: url("");
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 100vh;
-  padding: 0 2rem;
-  color: var(--lightGreen);
-}
-
-#home h1 {
-  font-size: 5rem;
-  margin: 0;
-}
-
-#home p {
-  font-size: 1rem;
-  margin: 0 2rem 1rem;
-  max-width: 800px;
 }
 
 button {
@@ -65,6 +42,75 @@ button {
   color: white;
   font-size: 1rem;
   cursor: pointer;
+  letter-spacing: 1px;
+}
+
+/* Hero Section */
+.hero-section {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+  height: 100vh;
+}
+
+.hero-section h1 {
+  font-size: 5rem;
+  margin: 0;
+}
+
+.hero-section p {
+  font-size: 1rem;
+  margin: 0 2rem 1rem;
+  max-width: 800px;
+  text-align: center;
+}
+
+#gallery {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.image-wrapper {
+  position: absolute;
+  width: 240px;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  opacity: 0.5;
+}
+
+/* .hero-section > h1 > span {
+  background: linear-gradient(to right, #a18cd1, #fbc2eb);
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+} */
+
+.hero-section > button {
+  all: unset;
+  letter-spacing: 1px;
+  padding: 14px 40px;
+  background-color: rgba(2, 255, 2, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 100px;
+  border: 1px solid rgba(250, 250, 250, 0.2);
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+.hero-section > button:hover {
+  border: 1px solid rgba(250, 250, 250, 0.5);
 }
 
 /* About */
@@ -436,11 +482,11 @@ footer {
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
-  #home h1 {
+  .hero-section h1 {
     font-size: 3rem;
   }
 
-  #home p {
+  .hero-section p {
     font-size: 0.9rem;
     margin: 0 1rem 1rem;
   }
@@ -484,11 +530,11 @@ footer {
 
 /* Extra small devices (phones) */
 @media screen and (max-width: 480px) {
-  #home h1 {
+  .hero-section h1 {
     font-size: 2.5rem;
   }
 
-  #home p {
+  .hero-section p {
     font-size: 0.85rem;
   }
 
